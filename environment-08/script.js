@@ -5,18 +5,19 @@ let posts = [];
 window.addEventListener("load", start);
 
 async function start() {
-    console.log("JS kører");   
-    posts = await getJsonData();
-    console.log(posts);
-    showPosts(posts)
+  console.log("JS kører");
+  posts = await getJsonData();
+  console.log(posts);
+  sortByLikes();
+  showPosts(posts);
 }
 
 async function getJsonData() {
-    const response = await fetch("posts.json");
-    console.log(response);
-    const data = await response.json();
-    console.log(data);
-    return data; 
+  const response = await fetch("posts.json");
+  console.log(response);
+  const data = await response.json();
+  console.log(data);
+  return data;
 }
 
 function showPosts(postList) {
@@ -30,4 +31,8 @@ function showPosts(postList) {
                 </article>`;
     document.querySelector("#posts-list").insertAdjacentHTML("beforeend", postHJtml);
   }
+}
+
+function sortByLikes() {
+  posts.sort((a, b) => a.likes - b.likes);
 }
